@@ -6,12 +6,15 @@
 #include <SDL2/SDL_opengl.h>
 #include <obj/load.h>
 #include <obj/draw.h>
+#include "texture.h"
+
 
 #include <GL/gl.h>
 
 void init_scene(Scene* scene)
 {
  
+    
 
     scene->sky_texture = load_texture("assets/textures/sky.jpg");
 
@@ -20,13 +23,70 @@ void init_scene(Scene* scene)
     scene->help_image = load_texture("assets/textures/help.jpg");
     load_model(&(scene->plate), "assets/models/plate.obj");
 
-    
+     load_model(&(scene->fank), "assets/models/f.obj");
+    scene->texture_fank = load_texture("assets/textures/fank.jpg");
     load_model(&(scene->maz), "assets/models/m.obj");
     scene->texture_maz = load_texture("assets/textures/maz.jpg");
 
-    
-    load_model(&(scene->fank), "assets/models/f.obj");
+   
+    load_model(&(scene->fank2), "assets/models/f.obj");
     scene->texture_fank = load_texture("assets/textures/fank.jpg");
+    load_model(&(scene->maz2), "assets/models/m.obj");
+    scene->texture_maz2 = load_texture("assets/textures/maz2.jpg");
+
+    load_model(&(scene->fank3), "assets/models/f.obj");
+    scene->texture_fank = load_texture("assets/textures/fank.jpg");
+    load_model(&(scene->maz3), "assets/models/m.obj");
+    scene->texture_maz3 = load_texture("assets/textures/maz3.jpg");
+
+    load_model(&(scene->talp), "assets/models/talp.obj");
+    scene->texture_fa = load_texture("assets/textures/fa.png");
+
+    load_model(&(scene->lap), "assets/models/lap.obj");
+    scene->texture_f = load_texture("assets/textures/f.png");
+
+    scene->texture_p = load_texture("assets/textures/p.png");
+
+    
+    load_model(&(scene->cake1), "assets/models/cake.obj");
+    load_model(&(scene->cake2), "assets/models/cake.obj") ; 
+    load_model(&(scene->cake3), "assets/models/cake.obj");
+
+    scene->texture_kakao = load_texture("assets/textures/kakao.jpg");
+    scene->texture_sima = load_texture("assets/textures/sima.jpg");
+    scene->texture_velvet = load_texture("assets/textures/velvet.jpg");
+
+    
+
+    load_model(&(scene->cream1), "assets/models/cake.obj");
+    load_model(&(scene->cream2), "assets/models/cake.obj");
+
+    scene->texture_eper = load_texture("assets/textures/eper.jpg");
+    scene->texture_csoki = load_texture("assets/textures/csoki.jpg");
+    scene->texture_vanilia = load_texture("assets/textures/vanilia.jpg");
+
+    scene->texture_cream1 = scene->texture_csoki;
+    scene->texture_cream1 = scene->texture_eper;
+    scene->texture_cream1 = scene->texture_vanilia;
+
+    scene->texture_cream2 = scene->texture_csoki;
+    scene->texture_cream2 = scene->texture_eper;
+    scene->texture_cream2 = scene->texture_vanilia;
+
+
+    scene->texture_cake1 = scene->texture_kakao;
+    scene->texture_cake1 = scene->texture_sima;
+    scene->texture_cake1 = scene->texture_velvet;
+   
+    scene->texture_cake2 = scene->texture_kakao;
+    scene->texture_cake2 = scene->texture_sima;
+    scene->texture_cake2 = scene->texture_velvet;
+   
+    scene->texture_cake3 = scene->texture_kakao;
+    scene->texture_cake3 = scene->texture_sima;
+    scene->texture_cake3 = scene->texture_velvet;
+
+
 
 
 
@@ -146,33 +206,146 @@ void render_scene(const Scene* scene)
     render_skybox(scene->sky_texture);
     glPopMatrix();
 
-
+//tányér
     glBindTexture(GL_TEXTURE_2D, 0);
     glPushMatrix();
-    glScalef(5.0f, 5.0f, 5.0f);
-    glTranslatef(2, 0, 0.008);
+    glScalef(10.0f, 10.0f, 10.0f);
+    glTranslatef(1, 0, 0.004);
     glRotatef(90, 1, 0, 0);
+    glBindTexture(GL_TEXTURE_2D, scene->texture_f);
     draw_model(&(scene->plate));
     glPopMatrix();
-
+//fánk1
     glBindTexture(GL_TEXTURE_2D, 0);
     glPushMatrix();
-    glTranslatef(10, 0, 0.34);
+    glTranslatef(10, 0, 1);
     glRotatef(0, 0, 0, 0);
-    glScalef(1.0f, 1.0f, 1.0f);
+    glScalef(3.0f, 3.0f, 3.0f);
     glBindTexture(GL_TEXTURE_2D, scene->texture_fank);
     draw_model(&(scene->fank));
     glPopMatrix();
 
+//fánkmáz 1
  glBindTexture(GL_TEXTURE_2D, 0);
     glPushMatrix();
-    glTranslatef(10, 0, 0.34);
+    glTranslatef(10, 0, 1);
     glRotatef(0, 0, 0, 0);
-    glScalef(1.0f, 1.0f, 1.0f);
+    glScalef(3.0f, 3.0f, 3.0f);
     glBindTexture(GL_TEXTURE_2D, scene->texture_maz);
     draw_model(&(scene->maz));
     glPopMatrix();
-  
+
+//fánk 2
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glPushMatrix();
+    glTranslatef(10, 0, 2.5);
+    glRotatef(0, 0, 0, 0);
+    glScalef(3.0f, 3.0f, 3.0f);
+    glBindTexture(GL_TEXTURE_2D, scene->texture_fank);
+    draw_model(&(scene->fank2));
+    glPopMatrix();
+//fánkmáz 2
+ glBindTexture(GL_TEXTURE_2D, 0);
+    glPushMatrix();
+    glTranslatef(10, 0, 2.5);
+    glRotatef(0, 0, 0, 0);
+    glScalef(3.0f, 3.0f, 3.0f);
+    glBindTexture(GL_TEXTURE_2D, scene->texture_maz2);
+    draw_model(&(scene->maz2));
+    glPopMatrix();
+
+ //fánk3
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glPushMatrix();
+    glTranslatef(10, -3.0, 0.6);
+    glRotatef(0, 0, 0, 0);
+    glScalef(2.0f, 2.0f, 2.0f);
+    glBindTexture(GL_TEXTURE_2D, scene->texture_fank);
+    draw_model(&(scene->fank3));
+    glPopMatrix();
+
+//fánkmáz 3
+ glBindTexture(GL_TEXTURE_2D, 0);
+    glPushMatrix();
+    glTranslatef(10, -3, 0.6);
+    glRotatef(0, 0, 0, 0);
+    glScalef(2.0f, 2.0f, 2.0f);
+    glBindTexture(GL_TEXTURE_2D, scene->texture_maz3);
+    draw_model(&(scene->maz3));
+    glPopMatrix();
+
+//Tortaállvány talpa
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glPushMatrix();
+    glTranslatef(3, 11, 0.004);
+    glRotatef(90, 1, 0, 0);
+    glScalef(1.5f, 1.5f, 1.5f);
+    glBindTexture(GL_TEXTURE_2D, scene->texture_fa);
+    draw_model(&(scene->talp));
+    glPopMatrix();
+
+ //Tortaállvány lapja   
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glPushMatrix();
+    glScalef(11.0f, 11.0f, 11.0f);
+    glTranslatef(0.28, 1, 0.28);
+    glRotatef(90, 1, 0, 0);
+    glBindTexture(GL_TEXTURE_2D, scene->texture_p);
+    draw_model(&(scene->lap));
+    glPopMatrix();
+
+//Piskóta alsó
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glPushMatrix();
+    glScalef(11.0f, 11.0f, 11.0f);
+    glTranslatef(0.28, 1, 0.26);
+    glRotatef(90, 1, 0, 0);
+    glBindTexture(GL_TEXTURE_2D, scene->texture_cake1);
+    draw_model(&(scene->cake1));
+    glPopMatrix();
+
+ //Krém alsó
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glPushMatrix();
+    glScalef(11.0f, 11.0f, 11.0f);
+    glTranslatef(0.28, 1, 0.3);
+    glRotatef(90, 1, 0, 0);
+    glBindTexture(GL_TEXTURE_2D, scene->texture_cream1);
+    draw_model(&(scene->cream1));
+    glPopMatrix();
+
+//Piskóta középső
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glPushMatrix();
+    glScalef(11.0f, 11.0f, 11.0f);
+    glTranslatef(0.28, 1, 0.34);
+    glRotatef(90, 1, 0, 0);
+    glBindTexture(GL_TEXTURE_2D, scene->texture_cake2);
+    draw_model(&(scene->cake2));
+    glPopMatrix();
+
+//Krém felső
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glPushMatrix();
+    glScalef(11.0f, 11.0f, 11.0f);
+    glTranslatef(0.28, 1, 0.38);
+    glRotatef(90, 1, 0, 0);
+    glBindTexture(GL_TEXTURE_2D, scene->texture_cream2);
+    draw_model(&(scene->cream2));
+    glPopMatrix();
+
+//Piskóta felső
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glPushMatrix();
+    glScalef(11.0f, 11.0f, 11.0f);
+    glTranslatef(0.28, 1, 0.42);
+    glRotatef(90, 1, 0, 0);
+    glBindTexture(GL_TEXTURE_2D, scene->texture_cake3);
+    draw_model(&(scene->cake3));
+    glPopMatrix();
+
+
+    
 
     if (scene->display_help)
     {

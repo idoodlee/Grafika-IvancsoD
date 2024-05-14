@@ -9,16 +9,36 @@
 typedef struct Scene
 {   
 
-   
+    Material material;
     Model plate;
     Model fank;
-    Material material;
     Model maz;
-   
+    Model fank2;
+    Model maz2;
+    Model fank3;
+    Model maz3;
+    Model talp;
+    Model lap;
+    Model cake1;
+    Model cake2;
+    Model cake3;
+    Model cream1;
+    Model cream2;
+    
+    
     GLuint table_texture;
     GLuint sky_texture;
     GLuint texture_fank;
-    GLuint texture_maz;
+    GLuint texture_maz, texture_maz2, texture_maz3;
+    GLuint texture_fa;
+    GLuint texture_f;
+    GLuint texture_p;
+
+    GLuint texture_kakao, texture_sima, texture_velvet;
+    GLuint texture_cake1, texture_cake2, texture_cake3;
+
+    GLuint texture_csoki, texture_eper, texture_vanilia;
+    GLuint texture_cream1, texture_cream2;
 
     GLuint help_image;
 

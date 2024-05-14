@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_mixer.h>
+#include "texture.h"
 
 #define INTENSITY_STEP 0.1f // Definiáljuk az INTENSITY_STEP-et
 
@@ -143,22 +144,22 @@ void handle_app_events(App* app)
                 app->is_running = false;
                 break;
             case SDL_SCANCODE_W:
-                set_camera_speed(&(app->camera), 1);
+                set_camera_speed(&(app->camera), 3);
                 break;
             case SDL_SCANCODE_S:
-                set_camera_speed(&(app->camera), -1);
+                set_camera_speed(&(app->camera), -3);
                 break;
             case SDL_SCANCODE_A:
-                set_camera_side_speed(&(app->camera), 1);
+                set_camera_side_speed(&(app->camera), 3);
                 break;
             case SDL_SCANCODE_D:
-                set_camera_side_speed(&(app->camera), -1);
+                set_camera_side_speed(&(app->camera), -3);
                 break;
             case SDL_SCANCODE_Q:
-                set_camera_vertical_speed(&(app->camera), 1);
+                set_camera_vertical_speed(&(app->camera), 3);
                 break;
             case SDL_SCANCODE_E:
-                set_camera_vertical_speed(&(app->camera), -1);
+                set_camera_vertical_speed(&(app->camera), -3);
                 break;
             case SDL_SCANCODE_T:
                 app->camera.locked = !app->camera.locked; 
@@ -188,8 +189,48 @@ void handle_app_events(App* app)
                     1.0
                 );
                 break;
-            default:
+        
+            case SDL_SCANCODE_1:
+                app->scene.texture_cream1 = app->scene.texture_csoki;
+                app->scene.texture_cream2 = app->scene.texture_csoki;
                 break;
+            case SDL_SCANCODE_2:
+                app->scene.texture_cream1 = app->scene.texture_eper;
+                app->scene.texture_cream2 = app->scene.texture_eper;
+                break;
+            case SDL_SCANCODE_3:
+                app->scene.texture_cream1 = app->scene.texture_vanilia;
+                app->scene.texture_cream2 = app->scene.texture_vanilia;
+                break;
+                case SDL_SCANCODE_4:
+                    app->scene.texture_cake1 = app->scene.texture_kakao;  // Alapértelmezett textúra
+                    break;
+                case SDL_SCANCODE_5:
+                    app->scene.texture_cake1 = app->scene.texture_sima;  // Második textúra
+                    break;
+                case SDL_SCANCODE_6:
+                    app->scene.texture_cake1 = app->scene.texture_velvet;  // Harmadik textúra
+                    break;
+                case SDL_SCANCODE_7:
+                    app->scene.texture_cake2 = app->scene.texture_kakao;  // Alapértelmezett textúra
+                    break;
+                case SDL_SCANCODE_8:
+                    app->scene.texture_cake2 = app->scene.texture_sima;  // Második textúra
+                    break;
+                case SDL_SCANCODE_9:
+                    app->scene.texture_cake2 = app->scene.texture_velvet;  // Harmadik textúra
+                    break;
+                 case SDL_SCANCODE_F10:
+                    app->scene.texture_cake3 = app->scene.texture_kakao;  // Alapértelmezett textúra
+                    break;
+                case SDL_SCANCODE_F11:
+                    app->scene.texture_cake3 = app->scene.texture_sima;  // Második textúra
+                    break;
+                case SDL_SCANCODE_F12:
+                    app->scene.texture_cake3 = app->scene.texture_velvet;  // Harmadik textúra
+                    break;    
+            default:
+                ;  // Üres utasítás a fordítói hiba elkerüléséhez
             }
             break;
         case SDL_KEYUP:
@@ -242,6 +283,8 @@ void handle_app_events(App* app)
                 1.0f
             );
             break;
+       
+
         case SDL_QUIT:
             app->is_running = false;
             break;
