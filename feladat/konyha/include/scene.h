@@ -1,5 +1,6 @@
 #ifndef SCENE_H
 #define SCENE_H
+#include "utils.h"
 
 #include "camera.h"
 #include "texture.h"
@@ -24,8 +25,10 @@ typedef struct Scene
     Model cake3;
     Model cream1;
     Model cream2;
+    Model bowl;
+    Model spoon;
     
-    
+    GLuint grass_texture;
     GLuint table_texture;
     GLuint sky_texture;
     GLuint texture_fank;
@@ -44,9 +47,11 @@ typedef struct Scene
 
     bool display_help;
     float light_intensity;
+
     vec3 wheel_position; 
     float wheel_rotation;
 
+  
 } Scene;
 
 

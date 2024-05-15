@@ -3,6 +3,7 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_mixer.h>
 #include "texture.h"
+#include "utils.h"
 
 #define INTENSITY_STEP 0.1f // Definiáljuk az INTENSITY_STEP-et
 
@@ -310,7 +311,8 @@ void update_app(App* app)
     double wheel_rotation = app->scene.wheel_rotation;
 
     update_camera(&(app->camera), elapsed_time, wheel_rotation, wheel_position);
-   // update_scene(&(app->scene), elapsed_time);
+    update_scene(&(app->scene), elapsed_time);
+
 
 
 }

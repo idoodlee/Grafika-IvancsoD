@@ -8,13 +8,14 @@
 #include <obj/draw.h>
 #include "texture.h"
 
+#include "utils.h"
 
 #include <GL/gl.h>
 
 void init_scene(Scene* scene)
 {
- 
-    
+    scene->wheel_rotation = 0.0;
+
 
     scene->sky_texture = load_texture("assets/textures/sky.jpg");
 
@@ -56,7 +57,8 @@ void init_scene(Scene* scene)
     scene->texture_sima = load_texture("assets/textures/sima.jpg");
     scene->texture_velvet = load_texture("assets/textures/velvet.jpg");
 
-    
+    load_model(&(scene->bowl), "assets/models/bowl.obj");
+     load_model(&(scene->spoon), "assets/models/spoon.obj");
 
     load_model(&(scene->cream1), "assets/models/cake.obj");
     load_model(&(scene->cream2), "assets/models/cake.obj");
@@ -105,7 +107,11 @@ void init_scene(Scene* scene)
     scene->material.shininess = 1.0;
     scene->light_intensity = 1.0f;
 
- 
+
+    scene->wheel_position.x = 3.0;
+    scene->wheel_position.y = -11.0;
+    scene->wheel_position.z = 1.0;
+
 
     scene->display_help = false;
 }
@@ -188,6 +194,13 @@ void help(GLuint Help_menu) {
     glMatrixMode(GL_MODELVIEW);
 
     glPopAttrib();  // Visszaállítjuk a mentett állapotokat
+}
+
+void update_scene(Scene* scene, double time)
+{
+   
+    scene->wheel_rotation = fmod(scene->wheel_rotation + 15.0 * time, 360.0);
+    
 }
 
 
@@ -343,9 +356,30 @@ void render_scene(const Scene* scene)
     glBindTexture(GL_TEXTURE_2D, scene->texture_cake3);
     draw_model(&(scene->cake3));
     glPopMatrix();
+//fakanál
+   glPushMatrix();
+    glTranslatef(3, -11, 1.3);  // Pozicionálás
+    glRotatef(scene->wheel_rotation, 0, 0, 1);  // Forgatás a Y tengely körül
+    glRotatef(23, 1, 0, 0);  // További forgatás
+    glScalef(15.0f, 15.0f, 15.0f);  // Nagyítás
+    glBindTexture(GL_TEXTURE_2D, scene->texture_fa);  // Textúra alkalmazása
+    draw_model(&(scene->spoon));  // Modell kirajzolása
+    glPopMatrix();
+//TÁL
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); 
+    set_material(&(scene->material), 0.5f);
+    glPushMatrix();
+    glTranslatef(3, -10, 0.004);
+    glRotatef(90, 1, 0, 0);
+    glScalef(30.0f, 30.0f, 30.0f);
+   glBindTexture(GL_TEXTURE_2D, scene->texture_f);
+    draw_model(&(scene->bowl));
+    glPopMatrix();
+    set_material(&(scene->material), 1.0f);
+    glDisable(GL_BLEND); 
 
 
-    
 
     if (scene->display_help)
     {
