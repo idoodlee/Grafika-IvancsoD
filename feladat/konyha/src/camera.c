@@ -22,34 +22,53 @@ void init_camera(Camera* camera)
 
 void update_camera(Camera* camera, double time, double wheel_rotation, vec3 wheel_position)
 {
+        (void)wheel_position;
     if (camera->locked) {
-        double angle = degree_to_radian(wheel_rotation);
+        double angle = degree_to_radian(-wheel_rotation); 
 
-        double radius = 2.0; // A sugár, ami a kamera távolságát jelöli a forgásponttól
+        double start_x = 4.0; 
+        double start_y = 5.8; 
+        double start_z = 3.0; 
 
-        // Kamera pozíciójának kiszámítása
-        camera->position.x = wheel_position.x + radius * cos(angle);
-        camera->position.y = wheel_position.y + radius * sin(angle) +1.0;
-        camera->position.z = wheel_position.z + 2.3; // Növeljük a Z koordinátát, hogy magasabban legyen
+        double radius = 2.0; 
 
-        // Kamera irányának kiszámítása a forgáspont felé
-        double dx = wheel_position.x - camera->position.x;
-        double dy = wheel_position.y - camera->position.y;
+        double center_x = start_x;
+        double center_y = start_y;
+        double center_z = start_z;
 
-        // Kamera nézeti szögeinek beállítása
-        camera->rotation.y = atan2(dy, dx) * 180.0 / M_PI + 180;
-        camera->rotation.x = -35;
+        double y_offset = radius * sin(angle);
+        double z_offset = radius * cos(angle);
+
+        camera->position.x = center_x;
+        camera->position.y = center_y + y_offset;
+        camera->position.z = center_z + z_offset;
+
+        
+        camera->rotation.x = 0.0;
+        camera->rotation.y = 0.0;
+        camera->rotation.z = -90.0;
     } else {
-        // Normál kamera mozgatás, ha a kamera nincs zárolva
-        double angleY = degree_to_radian(camera->rotation.y);
-        camera->position.x += camera->speed.x * cos(angleY) * time;
-        camera->position.y += camera->speed.x * sin(angleY) * time;
+        double angle;
+        double side_angle;
+
+        angle = degree_to_radian(camera->rotation.z);
+        side_angle = degree_to_radian(camera->rotation.z + 90.0);
+
+        camera->position.x += cos(angle) * camera->speed.y * time;
+        camera->position.y += sin(angle) * camera->speed.y * time;
+        camera->position.x += cos(side_angle) * camera->speed.x * time;
+        camera->position.y += sin(side_angle) * camera->speed.x * time;
+        camera->position.z += camera->speed.z * time;
     }
 }
 
+void calculate_camera_rotation(Camera* camera, vec3 direction) {
+    float length = sqrt(direction.x * direction.x + direction.y * direction.y + direction.z * direction.z);
 
-
-
+    camera->rotation.z = atan2(direction.y, direction.x) * 180.0 / M_PI;
+    
+    camera->rotation.x = atan2(direction.z, length) * 180.0 / M_PI;
+}
 
 
 void set_view(const Camera* camera)
